@@ -62,14 +62,39 @@ console.log(createEmployee('$500'));
 
 const isDirector = (employee: Director | Teacher) => {
   // it will be used as a type predicate and if the employee is a director
-  return (employee as Director);
+  return (employee as Director).workDirectorTasks !== undefined
 }
 
 // Write a function executeWork:
 // it accepts employee as an argument
 
-const executeWork = (employee: Director | Teacher) => {
-  
+function executeWork(employee: Director | Teacher) => {
+  if(isDirector(employee)) {
+    console.log(employee.workDirectorTasks())
+  } else {
+    console.log(employee.workTeacherTasks())
+  }
 }
 // if the employee is a Director, it will call workDirectorTasks
 // if the employee is a Teacher, it will call workTeacherTasks
+
+executeWork(createEmployee(200));
+executeWork(createEmployee(1000));
+
+// Write a String literal type named Subjects allowing a variable to have the value Math or History only. Write a function named teachClass:
+type Subjects = "Math" | "History";
+// it takes todayClass as an argument
+// it will return the string Teaching Math if todayClass is Math
+// it will return the string Teaching History if todayClass is History
+
+function teachClass(todayClass: Subjects): string {
+  if(todayClass === "Math") {
+    console.log("Teaching Math");
+  } else {
+    console.log("Teaching History");
+  }
+}
+
+teachClass('Math');
+teachClass('History');
+
